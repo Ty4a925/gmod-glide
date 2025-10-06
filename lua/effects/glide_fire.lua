@@ -7,6 +7,8 @@ local SMOKE_MAT = "particle/smokesprites_000"
 local SMOKE_GRAVITY = Vector( 0, 0, 200 )
 local FLAME_GRAVITY = Vector( 0, 0, 80 )
 
+local VEC_RAND = vector_origin
+
 function EFFECT:Init( data )
     local origin = data:GetOrigin()
     local velocity = data:GetStart() * 0.8
@@ -51,7 +53,8 @@ function EFFECT:Init( data )
     end
 
     for _ = 0, 3 do
-        p = emitter:Add( FLAME_MAT .. RandomInt( 5 ), origin + VectorRand() * 5 )
+        VEC_RAND:SetUnpacked( RandomInt( -1, 1 ), RandomInt( -1, 1 ), RandomInt( -1, 1 ) )
+        p = emitter:Add( FLAME_MAT .. RandomInt( 5 ), origin + VEC_RAND * 5 )
 
         if p then
             p:SetDieTime( RandomFloat( 0.3, 0.5 ) )
